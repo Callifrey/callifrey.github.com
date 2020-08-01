@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="Callifrey&#39;s blog">
 <meta property="og:description" content="PAT A1003 Emergency 题目大意  解题思路&amp;#160; &amp;#160; &amp;#160; &amp;#160;此题的思路较为清晰，不难从题目中直接看出是一道图的最短路径问题，可以采用传统的Dijkstra算法进行求解，唯一需要在意的便是此题不是求解最短路径的路径长度，而要求解两点之间最短路径的条数，以及路径上点权之和的最大值，由此设立num[i]和res[i]数组，在对最短路径进行优化的同时对">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/07/31/PAT-A1003/patA1003.png">
+<meta property="og:image" content="http://yoursite.com/.com//patA1003.png">
 <meta property="article:published_time" content="2020-07-31T15:00:55.000Z">
-<meta property="article:modified_time" content="2020-07-31T15:07:52.293Z">
+<meta property="article:modified_time" content="2020-08-01T06:49:32.369Z">
 <meta property="article:author" content="Jia-Wu Dai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/31/PAT-A1003/patA1003.png">
+<meta name="twitter:image" content="http://yoursite.com/.com//patA1003.png">
   
     <link rel="alternate" href="/atom.xml" title="Callifrey&#39;s blog" type="application/atom+xml">
   
@@ -97,7 +97,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="PAT-A1003-Emergency"><a href="#PAT-A1003-Emergency" class="headerlink" title="PAT A1003 Emergency"></a>PAT A1003 Emergency</h1><hr>
-<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><img src="./patA1003.png" alt="Alt text"></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><img src="/.com//patA1003.png" alt="Alt text"></p>
 <hr>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>&#160; &#160; &#160; &#160;此题的思路较为清晰，不难从题目中直接看出是一道图的最短路径问题，可以采用传统的Dijkstra算法进行求解，唯一需要在意的便是此题不是求解最短路径的路径长度，而要求解两点之间最短路径的条数，以及路径上点权之和的最大值，由此设立num[i]和res[i]数组，在对最短路径进行优化的同时对两个数组的值做相应的更新。尤其应该注意的是在调整后路径长度一致的情况下，对res[i]的调整要满足能使总点权变大，否则不予调整，而num[i]不受限制，与点权无关。<br>&#160; &#160; &#160; &#160;这里是典型的Dijkstra算法的拓展应用，值得研究。</p>
 <hr>
@@ -115,6 +115,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          最小生成树算法
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/30/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -143,7 +152,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
     </div>
   </div>
 
@@ -154,6 +163,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/">最小生成树算法</a>
+          </li>
         
           <li>
             <a href="/2020/07/31/PAT-A1003/">PAT-A1003</a>
