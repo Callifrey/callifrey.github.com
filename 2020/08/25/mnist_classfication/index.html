@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"callifrey.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out] 12345678910111213141516171819202122232425import numpy as npimport osimport m">
+  <meta name="description" content="title: MNIST手写数字识别date: 2020-08-25 10:05:27categories: 深度学习 MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Callifrey&#39;s blog">
 <meta property="og:url" content="https://callifrey.github.io/2020/08/25/mnist_classfication/index.html">
 <meta property="og:site_name" content="Callifrey&#39;s blog">
-<meta property="og:description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out] 12345678910111213141516171819202122232425import numpy as npimport osimport m">
+<meta property="og:description" content="title: MNIST手写数字识别date: 2020-08-25 10:05:27categories: 深度学习 MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out]">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
 <meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_6_1.png">
 <meta property="article:published_time" content="2020-08-25T01:50:59.131Z">
-<meta property="article:modified_time" content="2020-08-25T01:41:30.000Z">
+<meta property="article:modified_time" content="2020-08-25T02:11:51.023Z">
 <meta property="article:author" content="Jia-Wu Dai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-25 09:50:59 / Modified: 09:41:30" itemprop="dateCreated datePublished" datetime="2020-08-25T09:50:59+08:00">2020-08-25</time>
+              <time title="Created: 2020-08-25 09:50:59 / Modified: 10:11:51" itemprop="dateCreated datePublished" datetime="2020-08-25T09:50:59+08:00">2020-08-25</time>
             </span>
 
           
@@ -237,7 +237,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>9.6k </span>
+              <span>9.7k </span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -256,7 +256,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br><br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
+        <p>title: MNIST手写数字识别<br>date: 2020-08-25 10:05:27<br>categories: 深度学习</p>
+<h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
+<a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span>(<span class="params">path</span>):</span></span><br><span class="line">    data = []</span><br><span class="line">    label = []</span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        data_line = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        label.append(int(data_line[<span class="number">0</span>]))  <span class="comment">#标签</span></span><br><span class="line">        data.append(np.asfarray(data_line[<span class="number">1</span>:]))</span><br><span class="line">    data = np.asarray(data)</span><br><span class="line">    label = np.asarray(label)</span><br><span class="line">    <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">train_data, train_label = load_data(<span class="string">r&#x27;.\mnist_train.csv&#x27;</span>)</span><br><span class="line">test_data, test_label = load_data(<span class="string">r&#x27;.\mnist_test.csv&#x27;</span>)</span><br><span class="line"><span class="comment">#检查数据维度</span></span><br><span class="line">print(<span class="string">&#x27;train_data:&#x27;</span>,train_data.shape)</span><br><span class="line">print(<span class="string">&#x27;train_label:&#x27;</span>,train_label.shape)</span><br><span class="line">print(<span class="string">&#x27;test_data:&#x27;</span>,test_data.shape)</span><br><span class="line">print(<span class="string">&#x27;test_label:&#x27;</span>,test_label.shape)</span><br></pre></td></tr></table></figure>
 
 <pre><code>train_data: (60000, 784)
