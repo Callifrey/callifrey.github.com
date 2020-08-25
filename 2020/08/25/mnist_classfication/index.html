@@ -20,30 +20,35 @@
     var CONFIG = {"hostname":"callifrey.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="This is my personal blog based on hexo">
-<meta property="og:type" content="website">
+  <meta name="description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out] 12345678910111213141516171819202122232425import numpy as npimport osimport m">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Callifrey&#39;s blog">
-<meta property="og:url" content="https://callifrey.github.io/index.html">
+<meta property="og:url" content="https://callifrey.github.io/2020/08/25/mnist_classfication/index.html">
 <meta property="og:site_name" content="Callifrey&#39;s blog">
-<meta property="og:description" content="This is my personal blog based on hexo">
+<meta property="og:description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out] 12345678910111213141516171819202122232425import numpy as npimport osimport m">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
+<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_6_1.png">
+<meta property="article:published_time" content="2020-08-25T01:50:59.131Z">
+<meta property="article:modified_time" content="2020-08-25T01:41:30.000Z">
 <meta property="article:author" content="Jia-Wu Dai">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
 
-<link rel="canonical" href="https://callifrey.github.io/">
+<link rel="canonical" href="https://callifrey.github.io/2020/08/25/mnist_classfication/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Callifrey's blog</title>
+  <title> | Callifrey's blog</title>
   
 
 
@@ -185,9 +190,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -203,10 +209,9 @@
       <meta itemprop="name" content="Callifrey's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/25/mnist_classfication/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -219,7 +224,14 @@
               <time title="Created: 2020-08-25 09:50:59 / Modified: 09:41:30" itemprop="dateCreated datePublished" datetime="2020-08-25T09:50:59+08:00">2020-08-25</time>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="Symbols count in article">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -244,7 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br><br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
+        <h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br><br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span>(<span class="params">path</span>):</span></span><br><span class="line">    data = []</span><br><span class="line">    label = []</span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        data_line = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        label.append(int(data_line[<span class="number">0</span>]))  <span class="comment">#标签</span></span><br><span class="line">        data.append(np.asfarray(data_line[<span class="number">1</span>:]))</span><br><span class="line">    data = np.asarray(data)</span><br><span class="line">    label = np.asarray(label)</span><br><span class="line">    <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">train_data, train_label = load_data(<span class="string">r&#x27;.\mnist_train.csv&#x27;</span>)</span><br><span class="line">test_data, test_label = load_data(<span class="string">r&#x27;.\mnist_test.csv&#x27;</span>)</span><br><span class="line"><span class="comment">#检查数据维度</span></span><br><span class="line">print(<span class="string">&#x27;train_data:&#x27;</span>,train_data.shape)</span><br><span class="line">print(<span class="string">&#x27;train_label:&#x27;</span>,train_label.shape)</span><br><span class="line">print(<span class="string">&#x27;test_data:&#x27;</span>,test_data.shape)</span><br><span class="line">print(<span class="string">&#x27;test_label:&#x27;</span>,test_label.shape)</span><br></pre></td></tr></table></figure>
 
 <pre><code>train_data: (60000, 784)
@@ -424,304 +436,30 @@ Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
 
 <pre><code>Accuracy: 0.9655</code></pre>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://callifrey.github.io/2020/08/01/PAT-A1003/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jia-Wu Dai">
-      <meta itemprop="description" content="This is my personal blog based on hexo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Callifrey's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/01/PAT-A1003/" class="post-title-link" itemprop="url">PAT-A1003</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-01 16:05:27" itemprop="dateCreated datePublished" datetime="2020-08-01T16:05:27+08:00">2020-08-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-04 11:42:36" itemprop="dateModified" datetime="2020-08-04T11:42:36+08:00">2020-08-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PAT/" itemprop="url" rel="index"><span itemprop="name">PAT</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.2k </span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins. </span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="PAT-A1003-Emergency"><a href="#PAT-A1003-Emergency" class="headerlink" title="PAT A1003 Emergency"></a>PAT A1003 Emergency</h1><hr>
-<h1 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h1><p><img src="/2020/08/01/PAT-A1003/patA1003.png" alt="patA1003"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/01/PAT-A1003/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://callifrey.github.io/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jia-Wu Dai">
-      <meta itemprop="description" content="This is my personal blog based on hexo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Callifrey's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">最小生成树算法——Prim & Kruskal</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-01 14:47:28" itemprop="dateCreated datePublished" datetime="2020-08-01T14:47:28+08:00">2020-08-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-04 11:43:55" itemprop="dateModified" datetime="2020-08-04T11:43:55+08:00">2020-08-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.2k </span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins. </span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最小生成树算法——Prim-amp-Kruskal总结与代码实例"><a href="#最小生成树算法——Prim-amp-Kruskal总结与代码实例" class="headerlink" title="最小生成树算法——Prim &amp; Kruskal总结与代码实例"></a>最小生成树算法——Prim &amp; Kruskal总结与代码实例</h1><hr>
-<h1 id="Prim算法"><a href="#Prim算法" class="headerlink" title="Prim算法"></a>Prim算法</h1><p>&#160;&#160;&#160;&#160;Prim算法的思想是：对于原始图G(V,E)，建立一个集合S，从图的某个顶点开始（顶点可以是指定顶点，也可以是随机的顶点），逐步从点集V-S中选择到S中顶点距离最小的顶点加入S，并把该条最短路径加入最小生成树。<br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/01/PAT-A1003/" rel="prev" title="PAT-A1003">
+      <i class="fa fa-chevron-left"></i> PAT-A1003
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://callifrey.github.io/2020/07/30/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jia-Wu Dai">
-      <meta itemprop="description" content="This is my personal blog based on hexo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Callifrey's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/30/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-30 16:08:36" itemprop="dateCreated datePublished" datetime="2020-07-30T16:08:36+08:00">2020-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-04 11:35:41" itemprop="dateModified" datetime="2020-08-04T11:35:41+08:00">2020-08-04</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>367 </span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins. </span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -774,6 +512,7 @@ Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MINST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8EPython%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">MINST手写数字识别——基于Python实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

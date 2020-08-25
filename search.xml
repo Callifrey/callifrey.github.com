@@ -35,6 +35,190 @@
 ]]></content>
   </entry>
   <entry>
+    <title></title>
+    <url>/2020/08/25/mnist_classfication/</url>
+    <content><![CDATA[<h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br><br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span>(<span class="params">path</span>):</span></span><br><span class="line">    data = []</span><br><span class="line">    label = []</span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        data_line = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        label.append(int(data_line[<span class="number">0</span>]))  <span class="comment">#标签</span></span><br><span class="line">        data.append(np.asfarray(data_line[<span class="number">1</span>:]))</span><br><span class="line">    data = np.asarray(data)</span><br><span class="line">    label = np.asarray(label)</span><br><span class="line">    <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">train_data, train_label = load_data(<span class="string">r&#x27;.\mnist_train.csv&#x27;</span>)</span><br><span class="line">test_data, test_label = load_data(<span class="string">r&#x27;.\mnist_test.csv&#x27;</span>)</span><br><span class="line"><span class="comment">#检查数据维度</span></span><br><span class="line">print(<span class="string">&#x27;train_data:&#x27;</span>,train_data.shape)</span><br><span class="line">print(<span class="string">&#x27;train_label:&#x27;</span>,train_label.shape)</span><br><span class="line">print(<span class="string">&#x27;test_data:&#x27;</span>,test_data.shape)</span><br><span class="line">print(<span class="string">&#x27;test_label:&#x27;</span>,test_label.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>train_data: (60000, 784)
+train_label: (60000,)
+test_data: (10000, 784)
+test_label: (10000,)</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#显示图像</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">img_array = train_data[<span class="number">0</span>].reshape(<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line">plt.imshow(img, cmap=<span class="string">&#x27;gray&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.image.AxesImage at 0x1f2eb264c88&gt;</code></pre>
+<p><img src="/2020/08/25/mnist_classfication/output_2_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义softmax with entropy loss 层</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax_loss</span>(<span class="params">y_pred, y</span>):</span></span><br><span class="line">    <span class="comment">#减去最大值</span></span><br><span class="line">    N = y_pred.shape[<span class="number">0</span>]</span><br><span class="line">    y_pred_t = y_pred - np.max(y_pred, axis = <span class="number">1</span>,keepdims=<span class="literal">True</span>)  <span class="comment">#(N,10)</span></span><br><span class="line">    prob = np.exp(y_pred_t) / np.sum(np.exp(y_pred_t), axis = <span class="number">1</span>, keepdims=<span class="literal">True</span>) <span class="comment">#(N,10)</span></span><br><span class="line">    prob_true_class = prob[np.arange(N),y] <span class="comment">#(N,)</span></span><br><span class="line">    loss = -np.sum(np.log(prob_true_class)) / N</span><br><span class="line">    one_hot = np.zeros_like(y_pred)</span><br><span class="line">    one_hot[np.arange(N),y] = <span class="number">1</span></span><br><span class="line">    dloss = prob - one_hot</span><br><span class="line">    dloss /= N</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, dloss</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred = np.random.rand(<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">y = np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">5</span>,))</span><br><span class="line">loss, dloss = softmax_loss(y_pred, y)</span><br><span class="line">print( dloss.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>(5, 10)</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义神经网络结构</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoLayerNet</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, input_dim = <span class="number">784</span>, hidden_dim=<span class="number">100</span>, classes = <span class="number">10</span>, learning_rate = <span class="number">1e-3</span>, scale = <span class="number">1e-2</span>, batch_size = <span class="number">100</span>, epoch = <span class="number">5</span></span>):</span></span><br><span class="line">        self.lr = learning_rate</span><br><span class="line">        self.batch_size = batch_size</span><br><span class="line">        self.epoch = epoch</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#初始化权重</span></span><br><span class="line">        self.W1 = scale * np.random.randn(input_dim, hidden_dim)</span><br><span class="line">        self.b1 = np.zeros(hidden_dim)</span><br><span class="line">        self.W2 = scale * np.random.randn(hidden_dim, classes)</span><br><span class="line">        self.b2 = np.zeros(classes)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train_step</span>(<span class="params">self,batch_data, batch_label</span>):</span></span><br><span class="line">        <span class="comment">#前向传播</span></span><br><span class="line">        <span class="comment">#print(batch_data.dtype)</span></span><br><span class="line">        <span class="comment">#print(self.W1.dtype)</span></span><br><span class="line">        <span class="comment">#print(batch_data)</span></span><br><span class="line">        out_1 = np.dot(batch_data, self.W1) + self.b1</span><br><span class="line">        a = np.maximum(<span class="number">0</span>, out_1)</span><br><span class="line">        out_2 = np.dot(a, self.W2) + self.b2</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#反向传播</span></span><br><span class="line">        loss, dloss = softmax_loss(out_2, batch_label)</span><br><span class="line">        da = np.dot(dloss, self.W2.T)</span><br><span class="line">        dW2 = np.dot(a.T, dloss) <span class="comment">#(100,10)</span></span><br><span class="line">        db2 = np.sum(dloss, axis=<span class="number">0</span>) <span class="comment">#(10,)</span></span><br><span class="line">        mask = np.zeros_like(out_1)</span><br><span class="line">        mask[out_1 &gt;= <span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        dout_1 = da * mask</span><br><span class="line">        dW1 = np.dot(batch_data.T, dout_1)</span><br><span class="line">        db1 = np.sum(dout_1, axis=<span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#参数更新</span></span><br><span class="line">        self.W1 -= self.lr * dW1</span><br><span class="line">        self.b1 -= self.lr * db1</span><br><span class="line">        self.W2 -= self.lr * dW2</span><br><span class="line">        self.b2 -= self.lr * db2</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self,data, label</span>):</span></span><br><span class="line">        losses = []</span><br><span class="line">        batch_num = data.shape[<span class="number">0</span>] // self.batch_size</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.epoch):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(batch_num):</span><br><span class="line">                batch_data = data[j*self.batch_size:(j+<span class="number">1</span>)*self.batch_size]</span><br><span class="line">                batch_label = label[j*self.batch_size:(j+<span class="number">1</span>)*self.batch_size]</span><br><span class="line">                loss = self.train_step(batch_data, batch_label)</span><br><span class="line">                losses.append(loss)</span><br><span class="line">                <span class="keyword">if</span> j % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">                    print(<span class="string">&#x27;Epoch:%d,batch:%d,loss:%s&#x27;</span> %(i,j,loss))</span><br><span class="line">        <span class="comment">#显示损失曲线</span></span><br><span class="line">        plt.plot(losses)</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;iteratons&#x27;</span>)</span><br><span class="line">        plt.ylabel(<span class="string">&#x27;loss&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self,X</span>):</span></span><br><span class="line">        layer_out_1 = np.dot(X, self.W1) + self.b1</span><br><span class="line">        layer_out_1 = np.maximum(<span class="number">0</span>, layer_out_1)</span><br><span class="line">        layer_out_2 = np.dot(layer_out_1, self.W2) + self.b2</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> np.argmax(layer_out_2, axis = <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">net = TwoLayerNet()</span><br><span class="line">net.train(train_data, train_label)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch:0,batch:0,loss:2.6993474276550575
+Epoch:0,batch:20,loss:0.6445708368456224
+Epoch:0,batch:40,loss:0.44884707088443354
+Epoch:0,batch:60,loss:0.2640306710336387
+Epoch:0,batch:80,loss:0.3204723954469747
+Epoch:0,batch:100,loss:0.3848748433372022
+Epoch:0,batch:120,loss:0.3507642143612874
+Epoch:0,batch:140,loss:0.48249217905795333
+Epoch:0,batch:160,loss:0.4795637392276654
+Epoch:0,batch:180,loss:0.3327953223056048
+Epoch:0,batch:200,loss:0.380165069844661
+Epoch:0,batch:220,loss:0.16510215550352528
+Epoch:0,batch:240,loss:0.27705815098313885
+Epoch:0,batch:260,loss:0.2287109917398966
+Epoch:0,batch:280,loss:0.130465876364304
+Epoch:0,batch:300,loss:0.31773877087489616
+Epoch:0,batch:320,loss:0.25789242348391583
+Epoch:0,batch:340,loss:0.27304183634926493
+Epoch:0,batch:360,loss:0.27633996384371007
+Epoch:0,batch:380,loss:0.17987312292504756
+Epoch:0,batch:400,loss:0.18504815681574552
+Epoch:0,batch:420,loss:0.23457708160661778
+Epoch:0,batch:440,loss:0.15688281288691291
+Epoch:0,batch:460,loss:0.3600765746931063
+Epoch:0,batch:480,loss:0.18817052786884905
+Epoch:0,batch:500,loss:0.262994454821918
+Epoch:0,batch:520,loss:0.2605071930599241
+Epoch:0,batch:540,loss:0.2841670144931449
+Epoch:0,batch:560,loss:0.20196288414335647
+Epoch:0,batch:580,loss:0.1698636083643102
+Epoch:1,batch:0,loss:0.17041148431779657
+Epoch:1,batch:20,loss:0.20192671181959804
+Epoch:1,batch:40,loss:0.16956923738075666
+Epoch:1,batch:60,loss:0.11593729460141793
+Epoch:1,batch:80,loss:0.1324004453964233
+Epoch:1,batch:100,loss:0.19615773831964428
+Epoch:1,batch:120,loss:0.1844385095814967
+Epoch:1,batch:140,loss:0.29925059386376124
+Epoch:1,batch:160,loss:0.24870986680783014
+Epoch:1,batch:180,loss:0.19346266667540038
+Epoch:1,batch:200,loss:0.1910464145332525
+Epoch:1,batch:220,loss:0.09911171503809096
+Epoch:1,batch:240,loss:0.1283562724851256
+Epoch:1,batch:260,loss:0.1288465255173579
+Epoch:1,batch:280,loss:0.068950376365465
+Epoch:1,batch:300,loss:0.16807333374181763
+Epoch:1,batch:320,loss:0.17667582845255045
+Epoch:1,batch:340,loss:0.19742316139129654
+Epoch:1,batch:360,loss:0.17152977464520874
+Epoch:1,batch:380,loss:0.07012181717258915
+Epoch:1,batch:400,loss:0.11438855714322554
+Epoch:1,batch:420,loss:0.14897831577483145
+Epoch:1,batch:440,loss:0.10073990983671825
+Epoch:1,batch:460,loss:0.2166718456492235
+Epoch:1,batch:480,loss:0.10517587891532959
+Epoch:1,batch:500,loss:0.14248264689117035
+Epoch:1,batch:520,loss:0.1509580444830588
+Epoch:1,batch:540,loss:0.17698562766113576
+Epoch:1,batch:560,loss:0.15628291921215387
+Epoch:1,batch:580,loss:0.11835818604049506
+Epoch:2,batch:0,loss:0.13566132986443366
+Epoch:2,batch:20,loss:0.15716673555494423
+Epoch:2,batch:40,loss:0.1078544987224943
+Epoch:2,batch:60,loss:0.08563707137219856
+Epoch:2,batch:80,loss:0.11482250560379686
+Epoch:2,batch:100,loss:0.17611048568344
+Epoch:2,batch:120,loss:0.11760212526333408
+Epoch:2,batch:140,loss:0.2309870469014232
+Epoch:2,batch:160,loss:0.16672591760904593
+Epoch:2,batch:180,loss:0.14785616841086174
+Epoch:2,batch:200,loss:0.14618102873367397
+Epoch:2,batch:220,loss:0.08378329454714416
+Epoch:2,batch:240,loss:0.07235782122129683
+Epoch:2,batch:260,loss:0.09779816710164298
+Epoch:2,batch:280,loss:0.04990074360713112
+Epoch:2,batch:300,loss:0.12380951682980487
+Epoch:2,batch:320,loss:0.1289996504556289
+Epoch:2,batch:340,loss:0.15370392961889287
+Epoch:2,batch:360,loss:0.12450127231270182
+Epoch:2,batch:380,loss:0.040990338468994164
+Epoch:2,batch:400,loss:0.08309207757229106
+Epoch:2,batch:420,loss:0.10321382788583623
+Epoch:2,batch:440,loss:0.08692702105505196
+Epoch:2,batch:460,loss:0.1467617754031873
+Epoch:2,batch:480,loss:0.0923262493138619
+Epoch:2,batch:500,loss:0.10183531635858911
+Epoch:2,batch:520,loss:0.10358450983323868
+Epoch:2,batch:540,loss:0.13669694633975796
+Epoch:2,batch:560,loss:0.12632715582537934
+Epoch:2,batch:580,loss:0.1057250662738464
+Epoch:3,batch:0,loss:0.1168599030854789
+Epoch:3,batch:20,loss:0.1317549488877781
+Epoch:3,batch:40,loss:0.0814176657683383
+Epoch:3,batch:60,loss:0.07344684620468858
+Epoch:3,batch:80,loss:0.0978359077717956
+Epoch:3,batch:100,loss:0.16253496129426168
+Epoch:3,batch:120,loss:0.08724860579941923
+Epoch:3,batch:140,loss:0.19270131807678795
+Epoch:3,batch:160,loss:0.12246493397470067
+Epoch:3,batch:180,loss:0.13445971120451466
+Epoch:3,batch:200,loss:0.11741682488588903
+Epoch:3,batch:220,loss:0.06707283480584629
+Epoch:3,batch:240,loss:0.04587249292739679
+Epoch:3,batch:260,loss:0.07868653742352423
+Epoch:3,batch:280,loss:0.04068877767124393
+Epoch:3,batch:300,loss:0.09330744391505144
+Epoch:3,batch:320,loss:0.10095336706250478
+Epoch:3,batch:340,loss:0.12984047742878413
+Epoch:3,batch:360,loss:0.0995219427144117
+Epoch:3,batch:380,loss:0.0276549586409272
+Epoch:3,batch:400,loss:0.06573172964789706
+Epoch:3,batch:420,loss:0.07533472914650488
+Epoch:3,batch:440,loss:0.07982128436021041
+Epoch:3,batch:460,loss:0.10974607182718663
+Epoch:3,batch:480,loss:0.08847931654107902
+Epoch:3,batch:500,loss:0.08096816680652293
+Epoch:3,batch:520,loss:0.08143476465329717
+Epoch:3,batch:540,loss:0.11600705949861899
+Epoch:3,batch:560,loss:0.10426588585282554
+Epoch:3,batch:580,loss:0.09695368935113075
+Epoch:4,batch:0,loss:0.098868772533842
+Epoch:4,batch:20,loss:0.11296301712141496
+Epoch:4,batch:40,loss:0.06771172696275725
+Epoch:4,batch:60,loss:0.05943537194989215
+Epoch:4,batch:80,loss:0.09077894963377921
+Epoch:4,batch:100,loss:0.14529054510153205
+Epoch:4,batch:120,loss:0.07151794853814782
+Epoch:4,batch:140,loss:0.15142391395992624
+Epoch:4,batch:160,loss:0.10251098701349438
+Epoch:4,batch:180,loss:0.12506435403132976
+Epoch:4,batch:200,loss:0.09939786116436924
+Epoch:4,batch:220,loss:0.049407805905507536
+Epoch:4,batch:240,loss:0.03483055461685348
+Epoch:4,batch:260,loss:0.06359650758721574
+Epoch:4,batch:280,loss:0.03562540594941653
+Epoch:4,batch:300,loss:0.0738019031519411
+Epoch:4,batch:320,loss:0.0883521803132977
+Epoch:4,batch:340,loss:0.111349481706603
+Epoch:4,batch:360,loss:0.08930849216259663
+Epoch:4,batch:380,loss:0.01967333511255717
+Epoch:4,batch:400,loss:0.0569164612133574
+Epoch:4,batch:420,loss:0.05739026475693297
+Epoch:4,batch:440,loss:0.07176796335454912
+Epoch:4,batch:460,loss:0.08816819316450493
+Epoch:4,batch:480,loss:0.0812738475237048
+Epoch:4,batch:500,loss:0.06939000290061986
+Epoch:4,batch:520,loss:0.07310594342284828
+Epoch:4,batch:540,loss:0.10283117682819803
+Epoch:4,batch:560,loss:0.0882023158811816
+Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
+<p><img src="/2020/08/25/mnist_classfication/output_6_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#预测</span></span><br><span class="line">result = net.predict(test_data)</span><br><span class="line">acc = np.sum(result == test_label) / test_data.shape[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">&#x27;Accuracy:&#x27;</span>, acc)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.9655</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>最小生成树算法——Prim &amp; Kruskal</title>
     <url>/2020/08/01/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="最小生成树算法——Prim-amp-Kruskal总结与代码实例"><a href="#最小生成树算法——Prim-amp-Kruskal总结与代码实例" class="headerlink" title="最小生成树算法——Prim &amp; Kruskal总结与代码实例"></a>最小生成树算法——Prim &amp; Kruskal总结与代码实例</h1><hr>
