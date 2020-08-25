@@ -22,20 +22,20 @@
 
   <meta name="description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MNIST手写数字识别">
-<meta property="og:url" content="https://callifrey.github.io/2020/08/25/mnist_classfication/index.html">
+<meta property="og:title" content="mnist_classification">
+<meta property="og:url" content="https://callifrey.github.io/2020/08/25/mnist-classification/index.html">
 <meta property="og:site_name" content="Callifrey&#39;s blog">
 <meta property="og:description" content="MINST手写数字识别——基于Python实现使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:[inputs - affine - relu - affine - softmax with entropy - out]">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
-<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_6_1.png">
-<meta property="article:published_time" content="2020-08-25T02:05:27.000Z">
-<meta property="article:modified_time" content="2020-08-25T02:14:54.912Z">
+<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist-classification/output_2_1.png">
+<meta property="og:image" content="https://callifrey.github.io/2020/08/25/mnist-classification/output_6_1.png">
+<meta property="article:published_time" content="2020-08-25T02:18:37.000Z">
+<meta property="article:modified_time" content="2020-08-25T02:21:00.154Z">
 <meta property="article:author" content="Jia-Wu Dai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://callifrey.github.io/2020/08/25/mnist_classfication/output_2_1.png">
+<meta name="twitter:image" content="https://callifrey.github.io/2020/08/25/mnist-classification/output_2_1.png">
 
-<link rel="canonical" href="https://callifrey.github.io/2020/08/25/mnist_classfication/">
+<link rel="canonical" href="https://callifrey.github.io/2020/08/25/mnist-classification/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>MNIST手写数字识别 | Callifrey's blog</title>
+  <title>mnist_classification | Callifrey's blog</title>
   
 
 
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://callifrey.github.io/2020/08/25/mnist_classfication/">
+    <link itemprop="mainEntityOfPage" href="https://callifrey.github.io/2020/08/25/mnist-classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -210,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MNIST手写数字识别
+          mnist_classification
         </h1>
 
         <div class="post-meta">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-25 10:05:27 / Modified: 10:14:54" itemprop="dateCreated datePublished" datetime="2020-08-25T10:05:27+08:00">2020-08-25</time>
+              <time title="Created: 2020-08-25 10:18:37 / Modified: 10:21:00" itemprop="dateCreated datePublished" datetime="2020-08-25T10:18:37+08:00">2020-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,6 +267,8 @@
       
         <h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
 <a id="more"></a>
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span>(<span class="params">path</span>):</span></span><br><span class="line">    data = []</span><br><span class="line">    label = []</span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        data_line = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        label.append(int(data_line[<span class="number">0</span>]))  <span class="comment">#标签</span></span><br><span class="line">        data.append(np.asfarray(data_line[<span class="number">1</span>:]))</span><br><span class="line">    data = np.asarray(data)</span><br><span class="line">    label = np.asarray(label)</span><br><span class="line">    <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">train_data, train_label = load_data(<span class="string">r&#x27;.\mnist_train.csv&#x27;</span>)</span><br><span class="line">test_data, test_label = load_data(<span class="string">r&#x27;.\mnist_test.csv&#x27;</span>)</span><br><span class="line"><span class="comment">#检查数据维度</span></span><br><span class="line">print(<span class="string">&#x27;train_data:&#x27;</span>,train_data.shape)</span><br><span class="line">print(<span class="string">&#x27;train_label:&#x27;</span>,train_label.shape)</span><br><span class="line">print(<span class="string">&#x27;test_data:&#x27;</span>,test_data.shape)</span><br><span class="line">print(<span class="string">&#x27;test_label:&#x27;</span>,test_label.shape)</span><br></pre></td></tr></table></figure>
 
 <pre><code>train_data: (60000, 784)
@@ -274,12 +276,7 @@ train_label: (60000,)
 test_data: (10000, 784)
 test_label: (10000,)</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#显示图像</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">img_array = train_data[<span class="number">0</span>].reshape(<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line">plt.imshow(img, cmap=<span class="string">&#x27;gray&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>&lt;matplotlib.image.AxesImage at 0x1f2eb264c88&gt;</code></pre>
-<p><img src="/2020/08/25/mnist_classfication/output_2_1.png" alt="png"></p>
+<p>&lt;matplotlib.image.AxesImage at 0x1f2eb264c88&gt;<br><img src="/2020/08/25/mnist-classification/output_2_1.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义softmax with entropy loss 层</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax_loss</span>(<span class="params">y_pred, y</span>):</span></span><br><span class="line">    <span class="comment">#减去最大值</span></span><br><span class="line">    N = y_pred.shape[<span class="number">0</span>]</span><br><span class="line">    y_pred_t = y_pred - np.max(y_pred, axis = <span class="number">1</span>,keepdims=<span class="literal">True</span>)  <span class="comment">#(N,10)</span></span><br><span class="line">    prob = np.exp(y_pred_t) / np.sum(np.exp(y_pred_t), axis = <span class="number">1</span>, keepdims=<span class="literal">True</span>) <span class="comment">#(N,10)</span></span><br><span class="line">    prob_true_class = prob[np.arange(N),y] <span class="comment">#(N,)</span></span><br><span class="line">    loss = -np.sum(np.log(prob_true_class)) / N</span><br><span class="line">    one_hot = np.zeros_like(y_pred)</span><br><span class="line">    one_hot[np.arange(N),y] = <span class="number">1</span></span><br><span class="line">    dloss = prob - one_hot</span><br><span class="line">    dloss /= N</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, dloss</span><br></pre></td></tr></table></figure>
 
 
@@ -441,7 +438,7 @@ Epoch:4,batch:520,loss:0.07310594342284828
 Epoch:4,batch:540,loss:0.10283117682819803
 Epoch:4,batch:560,loss:0.0882023158811816
 Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
-<p><img src="/2020/08/25/mnist_classfication/output_6_1.png" alt="png"></p>
+<p><img src="/2020/08/25/mnist-classification/output_6_1.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#预测</span></span><br><span class="line">result = net.predict(test_data)</span><br><span class="line">acc = np.sum(result == test_label) / test_data.shape[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">&#x27;Accuracy:&#x27;</span>, acc)</span><br></pre></td></tr></table></figure>
 
 <pre><code>Accuracy: 0.9655</code></pre>

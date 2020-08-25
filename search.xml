@@ -17,28 +17,12 @@
       </categories>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/30/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>MNIST手写数字识别</title>
-    <url>/2020/08/25/mnist_classfication/</url>
+    <title>mnist_classification</title>
+    <url>/2020/08/25/mnist-classification/</url>
     <content><![CDATA[<h2 id="MINST手写数字识别——基于Python实现"><a href="#MINST手写数字识别——基于Python实现" class="headerlink" title="MINST手写数字识别——基于Python实现"></a>MINST手写数字识别——基于Python实现</h2><p><font size="4">使用python构建简单的二层神经网络进行MNIST手写数字识别，网络结构:<br>[inputs - affine - relu - affine - softmax with entropy - out]</font></p>
 <a id="more"></a>
+
+
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span>(<span class="params">path</span>):</span></span><br><span class="line">    data = []</span><br><span class="line">    label = []</span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        data_line = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        label.append(int(data_line[<span class="number">0</span>]))  <span class="comment">#标签</span></span><br><span class="line">        data.append(np.asfarray(data_line[<span class="number">1</span>:]))</span><br><span class="line">    data = np.asarray(data)</span><br><span class="line">    label = np.asarray(label)</span><br><span class="line">    <span class="keyword">return</span> data, label</span><br><span class="line"></span><br><span class="line">train_data, train_label = load_data(<span class="string">r&#x27;.\mnist_train.csv&#x27;</span>)</span><br><span class="line">test_data, test_label = load_data(<span class="string">r&#x27;.\mnist_test.csv&#x27;</span>)</span><br><span class="line"><span class="comment">#检查数据维度</span></span><br><span class="line">print(<span class="string">&#x27;train_data:&#x27;</span>,train_data.shape)</span><br><span class="line">print(<span class="string">&#x27;train_label:&#x27;</span>,train_label.shape)</span><br><span class="line">print(<span class="string">&#x27;test_data:&#x27;</span>,test_data.shape)</span><br><span class="line">print(<span class="string">&#x27;test_label:&#x27;</span>,test_label.shape)</span><br></pre></td></tr></table></figure>
 
 <pre><code>train_data: (60000, 784)
@@ -46,12 +30,7 @@ train_label: (60000,)
 test_data: (10000, 784)
 test_label: (10000,)</code></pre>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#显示图像</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">img_array = train_data[<span class="number">0</span>].reshape(<span class="number">28</span>,<span class="number">28</span>)</span><br><span class="line">plt.imshow(img, cmap=<span class="string">&#x27;gray&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>&lt;matplotlib.image.AxesImage at 0x1f2eb264c88&gt;</code></pre>
-<p><img src="/2020/08/25/mnist_classfication/output_2_1.png" alt="png"></p>
+<p>&lt;matplotlib.image.AxesImage at 0x1f2eb264c88&gt;<br><img src="/2020/08/25/mnist-classification/output_2_1.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义softmax with entropy loss 层</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax_loss</span>(<span class="params">y_pred, y</span>):</span></span><br><span class="line">    <span class="comment">#减去最大值</span></span><br><span class="line">    N = y_pred.shape[<span class="number">0</span>]</span><br><span class="line">    y_pred_t = y_pred - np.max(y_pred, axis = <span class="number">1</span>,keepdims=<span class="literal">True</span>)  <span class="comment">#(N,10)</span></span><br><span class="line">    prob = np.exp(y_pred_t) / np.sum(np.exp(y_pred_t), axis = <span class="number">1</span>, keepdims=<span class="literal">True</span>) <span class="comment">#(N,10)</span></span><br><span class="line">    prob_true_class = prob[np.arange(N),y] <span class="comment">#(N,)</span></span><br><span class="line">    loss = -np.sum(np.log(prob_true_class)) / N</span><br><span class="line">    one_hot = np.zeros_like(y_pred)</span><br><span class="line">    one_hot[np.arange(N),y] = <span class="number">1</span></span><br><span class="line">    dloss = prob - one_hot</span><br><span class="line">    dloss /= N</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, dloss</span><br></pre></td></tr></table></figure>
 
 
@@ -213,7 +192,7 @@ Epoch:4,batch:520,loss:0.07310594342284828
 Epoch:4,batch:540,loss:0.10283117682819803
 Epoch:4,batch:560,loss:0.0882023158811816
 Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
-<p><img src="/2020/08/25/mnist_classfication/output_6_1.png" alt="png"></p>
+<p><img src="/2020/08/25/mnist-classification/output_6_1.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#预测</span></span><br><span class="line">result = net.predict(test_data)</span><br><span class="line">acc = np.sum(result == test_label) / test_data.shape[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">&#x27;Accuracy:&#x27;</span>, acc)</span><br></pre></td></tr></table></figure>
 
 <pre><code>Accuracy: 0.9655</code></pre>
@@ -221,6 +200,24 @@ Epoch:4,batch:580,loss:0.08708739105546906</code></pre>
       <categories>
         <category>深度学习</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/07/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>最小生成树算法——Prim &amp; Kruskal</title>
